@@ -374,6 +374,8 @@ New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\UserProfi
 New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy -Name TailoredExperiencesWithDiagnosticDataEnabled -PropertyType DWord -Value 0 -Force
 #endregion Privacy & Telemetry
 
+<#
+
 #region UI & Personalization
 # Show "This PC" on Desktop
 # Отобразить "Этот компьютер" на рабочем столе
@@ -447,13 +449,12 @@ if (-not (Test-Path -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explor
 }
 New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon -Name MinimizedStateTabletModeOff -PropertyType DWord -Value 0 -Force
 
-<#
-Display recycle bin files delete confirmation
-Function [WinAPI.UpdateExplorer]::PostMessage() call required at the end
+#Display recycle bin files delete confirmation
+#Function [WinAPI.UpdateExplorer]::PostMessage() call required at the end
 
-Запрашивать подтверждение на удаление файлов в корзину
-В конце необходим вызов функции [WinAPI.UpdateExplorer]::PostMessage()
-#>
+#Запрашивать подтверждение на удаление файлов в корзину
+#В конце необходим вызов функции [WinAPI.UpdateExplorer]::PostMessage()
+#
 $ShellState = Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name ShellState
 $ShellState[4] = 51
 New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer -Name ShellState -PropertyType Binary -Value $ShellState -Force
@@ -662,6 +663,10 @@ New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer 
 # Использовать кнопку PRINT SCREEN, чтобы запустить функцию создания фрагмента экрана
 New-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name PrintScreenKeyForSnippingEnabled -PropertyType DWord -Value 1 -Force
 
+#endregion UI & Personalization
+
+#>
+
 # Turn on Windows 10 20H2 new Start style
 # Включить новый стиль Пуска как в Windows 10 20H2
 if (Get-HotFix -Id KB4568831 -ErrorAction Ignore)
@@ -673,7 +678,6 @@ if (Get-HotFix -Id KB4568831 -ErrorAction Ignore)
 	New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\0\2093230218 -Name EnabledState -PropertyType DWORD -Value 2 -Force
 	New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\0\2093230218 -Name EnabledStateOptions -PropertyType DWORD -Value 0 -Force
 }
-#endregion UI & Personalization
 
 #region OneDrive
 # Uninstall OneDrive
