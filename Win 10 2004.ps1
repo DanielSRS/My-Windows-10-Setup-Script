@@ -679,6 +679,8 @@ if (Get-HotFix -Id KB4568831 -ErrorAction Ignore)
 	New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\0\2093230218 -Name EnabledStateOptions -PropertyType DWORD -Value 0 -Force
 }
 
+<#
+
 #region OneDrive
 # Uninstall OneDrive
 # Удалить OneDrive
@@ -794,6 +796,8 @@ if ($UninstallString)
 	Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk" -Force -ErrorAction Ignore
 }
 #endregion OneDrive
+
+#>
 
 #region System
 # Turn on Storage Sense
