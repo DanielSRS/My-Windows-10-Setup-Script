@@ -981,20 +981,6 @@ else
 	}
 }
 
-<#
-Open Microsoft Store "HEVC Video Extensions from Device Manufacturer" page
-The extension can be installed without Microsoft account
-"Movies & TV" app required
-
-Открыть страницу "Расширения для видео HEVC от производителя устройства" в Microsoft Store
-Расширение может быть установлено без учетной записи Microsoft
-Для работы необходимо приложение "Кино и ТВ"
-#>
-if (Get-AppxPackage -Name Microsoft.ZuneVideo)
-{
-	Start-Process -FilePath ms-windows-store://pdp/?ProductId=9n4wgh0z6vhq
-}
-
 # Turn off Cortana autostarting
 # Удалить Кортана из автозагрузки
 if (Get-AppxPackage -Name Microsoft.549981C3F5F10)
@@ -1006,9 +992,6 @@ if (Get-AppxPackage -Name Microsoft.549981C3F5F10)
 	New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.549981C3F5F10_8wekyb3d8bbwe\CortanaStartupId" -Name State -PropertyType DWord -Value 1 -Force
 }
 
-# Check for UWP apps updates
-# Проверить обновления UWP-приложений
-Get-CimInstance -Namespace "Root\cimv2\mdm\dmmap" -ClassName "MDM_EnterpriseModernAppManagement_AppManagement01" | Invoke-CimMethod -MethodName UpdateScanMethod
 #endregion UWP apps
 
 #region Gaming
